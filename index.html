@@ -1,1 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Для тебя ❤️</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #fce4ec, #f8bbd0);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #880e4f;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #4a148c;
+    }
+
+    .heart-tree {
+      margin: 40px auto;
+      width: 250px;
+      height: 250px;
+      position: relative;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .trunk {
+      width: 30px;
+      height: 120px;
+      background: #00897b;
+      margin: auto;
+      border-radius: 10px;
+    }
+
+    .timer {
+      margin-top: 40px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    /* падающие сердечки */
+    .falling-heart {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ec407a;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #d81b60;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Для тебя ❤️</h1>
+
+  <p>
+    С тобой всё становится теплее и настоящим.<br>
+    Каждый момент рядом с тобой — особенный.
+  </p>
+
+  <p>
+    Ты делаешь мою жизнь ярче,<br>
+    и я благодарен, что ты есть у меня.
+  </p>
+
+  <p><strong>Я тебя люблю 💖</strong></p>
+
+  <!-- дерево -->
+  <div class="heart-tree" id="tree"></div>
+  <div class="trunk"></div>
+
+  <!-- кнопка -->
+  <button onclick="createHearts()">Нажми ❤️</button>
+
+  <!-- таймер -->
+  <div class="timer" id="timer"></div>
+</div>
+
+<script>
+  // ❤️ создаём дерево из сердечек
+  const tree = document.getElementById("tree");
+
+  for (let i = 0; i < 40; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+
+    heart.style.left = Math.random() * 200 + "px";
+    heart.style.top = Math.random() * 200 + "px";
+    heart.style.animationDelay = Math.random() * 2 + "s";
+
+    tree.appendChild(heart);
+  }
+
+  // ❤️ падающие сердечки
+  function createHearts() {
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement("div");
+      heart.className = "falling-heart";
+      heart.innerText = "💖";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+  }
+
+  // ⏳ таймер (измени дату здесь!)
+  const startDate = new Date("2025-01-01");
+
+  function updateTimer() {
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer").innerText =
+      `С тобой уже: ${days}д ${hours}ч ${minutes}м ${seconds}с`;
+  }
+
+  setInterval(updateTimer, 1000);
+  updateTimer();
+</script>
+
+</body>
+</html>
