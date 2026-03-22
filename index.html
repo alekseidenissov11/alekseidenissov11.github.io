@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Для тебя ❤️</title>
 
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(to bottom, #fce4ec, #f8bbd0);
       overflow-x: hidden;
     }
@@ -32,7 +33,7 @@
     }
 
     .heart-tree {
-      margin: 40px auto;
+      margin: 40px auto 0;
       width: 250px;
       height: 250px;
       position: relative;
@@ -45,7 +46,7 @@
     }
 
     @keyframes float {
-      0%,100% { transform: translateY(0); }
+      0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
 
@@ -61,9 +62,9 @@
       margin-top: 40px;
       font-size: 1.4rem;
       font-weight: bold;
+      color: #880e4f;
     }
 
-    /* падающие сердечки */
     .falling-heart {
       position: fixed;
       top: -10px;
@@ -97,84 +98,76 @@
 </head>
 
 <body>
+  <div class="container">
+    <h1>Для тебя ❤️</h1>
 
-<div class="container">
-  <h1>Для тебя ❤️</h1>
+    <p>
+      С тобой всё становится теплее и настоящим.<br>
+      Каждый момент рядом с тобой — особенный.
+    </p>
 
-  <p>
-    С тобой всё становится теплее и настоящим.<br>
-    Каждый момент рядом с тобой — особенный.
-  </p>
+    <p>
+      Ты делаешь мою жизнь ярче,<br>
+      и я благодарен, что ты есть у меня.
+    </p>
 
-  <p>
-    Ты делаешь мою жизнь ярче,<br>
-    и я благодарен, что ты есть у меня.
-  </p>
+    <p><strong>Я тебя люблю 💖</strong></p>
 
-  <p><strong>Я тебя люблю 💖</strong></p>
+    <div class="heart-tree" id="tree"></div>
+    <div class="trunk"></div>
 
-  <!-- дерево -->
-  <div class="heart-tree" id="tree"></div>
-  <div class="trunk"></div>
+    <button onclick="createHearts()">Нажми ❤️</button>
 
-  <!-- кнопка -->
-  <button onclick="createHearts()">Нажми ❤️</button>
+    <div class="timer" id="timer"></div>
+  </div>
 
-  <!-- таймер -->
-  <div class="timer" id="timer"></div>
-</div>
+  <script>
+    const tree = document.getElementById("tree");
 
-<script>
-  // ❤️ создаём дерево из сердечек
-  const tree = document.getElementById("tree");
-
-  for (let i = 0; i < 40; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "❤️";
-
-    heart.style.left = Math.random() * 200 + "px";
-    heart.style.top = Math.random() * 200 + "px";
-    heart.style.animationDelay = Math.random() * 2 + "s";
-
-    tree.appendChild(heart);
-  }
-
-  // ❤️ падающие сердечки
-  function createHearts() {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 40; i++) {
       const heart = document.createElement("div");
-      heart.className = "falling-heart";
-      heart.innerText = "💖";
+      heart.className = "heart";
+      heart.innerText = "❤️";
 
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      heart.style.left = Math.random() * 200 + "px";
+      heart.style.top = Math.random() * 200 + "px";
+      heart.style.animationDelay = Math.random() * 2 + "s";
 
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 5000);
+      tree.appendChild(heart);
     }
-  }
 
-  // ⏳ таймер (измени дату здесь!)
-  const startDate = new Date("2025-01-01");
+    function createHearts() {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "falling-heart";
+        heart.innerText = "💖";
 
-  function updateTimer() {
-    const now = new Date();
-    const diff = now - startDate;
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+        document.body.appendChild(heart);
 
-    document.getElementById("timer").innerText =
-      `С тобой уже: ${days}д ${hours}ч ${minutes}м ${seconds}с`;
-  }
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
 
-  setInterval(updateTimer, 1000);
-  updateTimer();
-</script>
+    const startDate = new Date("2023-07-17T00:00:00");
 
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("timer").innerText =
+        `Мы вместе уже: ${days} д ${hours} ч ${minutes} мин ${seconds} сек`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
 </body>
 </html>
